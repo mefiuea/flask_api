@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  db_mongo:
+    image: mongo:5.0
+    container_name: mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./mongo:/data/db
+    env_file:
+      - ./env/.env_database
+
+  backend:
+    build: .
+    volumes:
+      - .:/code/
+    ports:
+      - '8100:5000'
+    container_name: flask_api_container
+    depends_on:
+      - db_mongo

@@ -9,6 +9,7 @@ venv
 env/.env
 
 *.sqlite3
+mongo
 #staticfiles/*
 
 data_base_local_settings.py
@@ -141,7 +142,7 @@ celerybeat.pid
 
 # Environments
 .env
-env/database.env
+env/.env_database
 .venv
 venv/
 env.bak/
