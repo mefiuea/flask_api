@@ -9,7 +9,8 @@ venv
 env/.env
 
 *.sqlite3
-mongo
+mongo-volume
+init-mongo.js
 #staticfiles/*
 
 data_base_local_settings.py
