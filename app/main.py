@@ -1,22 +1,25 @@
 import os
 
+import pymongo
 from flask import Flask, Response
 import json
-from pymongo import MongoClient, errors
 
 app = Flask(__name__)
 
-try:
-    mongo = MongoClient(
-        host='db_mongo',
-        port=27017,
-        serverSelectionTimeoutMS=1000
-    )
-    db = mongo.flask_api_db
-    mongo.server_info()
-except errors.ServerSelectionTimeoutError as err:
-    print('PROBLEM')
-    print(err)
+# try:
+#     # mongo = MongoClient(
+#     #     host='db_mongo',
+#     #     port=27017,
+#     #     serverSelectionTimeoutMS=1000
+#     # )
+#     # db = mongo.flask_api_db
+#     # db = mongo.get_database('flask_api_db')
+#     # print('DATABASE NAME:', db, flush=True)
+#
+#     # mongo = PyMongo(app)
+#     # mongo.server_info()
+# except:
+#     print('PROBLEM')
 
 
 @app.route('/')
@@ -28,12 +31,14 @@ def index():
 def create_user():
     try:
         user = {'name': 'Maciej', 'lastName': 'Test'}
-        db_response = db.users.insert_one(user)
         print('tutaj', flush=True)
+        # db_response = db.insert_one(user)
+        # persons.insert_one(user)
+        print('tutaj2', flush=True)
 
-        for element in db_response:
-            print('INFO:')
-            print(element)
+        # for element in db_response:
+        #     print('INFO:')
+        #     print(element)
 
         return Response(
             response=json.dumps(
@@ -50,4 +55,4 @@ def create_user():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=8100)
