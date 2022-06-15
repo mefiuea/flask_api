@@ -8,4 +8,4 @@ WORKDIR /code
 COPY Pipfile Pipfile.lock /code/
 RUN pip install pipenv && pipenv install --system
 
-CMD python app/main.py
+CMD python main.py

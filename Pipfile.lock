@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "53112e4dc10d6f188adddcd7165343aca8a4f38b6b791d21cf3547435e89076a"
+            "sha256": "533c8894d8e69de184e01029b4cb9bc0827ae2ba67e997e414f57aa51e832348"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -31,6 +31,14 @@
             ],
             "index": "pypi",
             "version": "==2.1.2"
+        },
+        "flask-pymongo": {
+            "hashes": [
+                "sha256:620eb02dc8808a5fcb90f26cab6cba9d6bf497b15032ae3ca99df80366e33314",
+                "sha256:8a9577a2c6d00b49f21cb5a5a8d72561730364a2d745551a85349ab02f86fc73"
+            ],
+            "index": "pypi",
+            "version": "==2.3.0"
         },
         "itsdangerous": {
             "hashes": [
@@ -93,14 +101,6 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==2.1.1"
-        },
-        "mongoengine": {
-            "hashes": [
-                "sha256:01baac85f408f5eefb6195c0afeae631e7fc6fab5cb221a7b46646f94227d6da",
-                "sha256:68878b65bcb3751debcba4342180a180161cdb5f46525027e622ad081dd44fac"
-            ],
-            "index": "pypi",
-            "version": "==0.24.1"
         },
         "pymongo": {
             "hashes": [
