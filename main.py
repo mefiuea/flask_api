@@ -76,7 +76,7 @@ def update_user(uid):
             {'$set': {'name': request.form['name']}}
         )
         # for attr in dir(db_response):
-            # print('METHODS FOR DB:', attr, flush=True)
+        # print('METHODS FOR DB:', attr, flush=True)
         if db_response.modified_count == 1:
             return Response(
                 response=json.dumps({'message': 'User updated'}),
@@ -93,6 +93,31 @@ def update_user(uid):
         print(ex, flush=True)
         return Response(
             response=json.dumps({'message': 'Can not update user'}),
+            status=500,
+            mimetype='application/json'
+        )
+
+
+@app.route('/users/<uid>/', methods=['DELETE'])
+def delete_user(uid):
+    try:
+        db_response = db.users.delete_one({'_id': ObjectId(uid)})
+        if db_response.deleted_count == 1:
+            return Response(
+                response=json.dumps({'message': 'User deleted', 'id': uid}),
+                status=200,
+                mimetype='application/json'
+            )
+        else:
+            return Response(
+                response=json.dumps({'message': 'No user was deleted'}),
+                status=200,
+                mimetype='application/json'
+            )
+    except Exception as ex:
+        print(ex, flush=True)
+        return Response(
+            response=json.dumps({'message': 'Can not delete user - wrong id'}),
             status=500,
             mimetype='application/json'
         )
