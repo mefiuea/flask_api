@@ -1,7 +1,7 @@
 import os
 
 import pymongo
-from flask import Flask, Response, jsonify
+from flask import Flask, Response, jsonify, request
 import json
 
 app = Flask(__name__)
@@ -30,7 +30,7 @@ def index():
 @app.route('/users/', methods=['POST'])
 def create_user():
     try:
-        user = {'name': 'A', 'lastName': 'AA'}
+        user = {'name': request.form['name'], 'lastName': request.form['lastName']}
         db_response = db.users.insert_one(user)
         return Response(
             response=json.dumps({'message': 'user created', 'id': f'{db_response.inserted_id}'}),
