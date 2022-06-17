@@ -68,5 +68,35 @@ def get_some_users():
         )
 
 
+@app.route('/users/<uid>/', methods=['PATCH'])
+def update_user(uid):
+    try:
+        db_response = db.users.update_one(
+            {'_id': ObjectId(uid)},
+            {'$set': {'name': request.form['name']}}
+        )
+        # for attr in dir(db_response):
+            # print('METHODS FOR DB:', attr, flush=True)
+        if db_response.modified_count == 1:
+            return Response(
+                response=json.dumps({'message': 'User updated'}),
+                status=200,
+                mimetype='application/json'
+            )
+        else:
+            return Response(
+                response=json.dumps({'message': 'Nothing to update'}),
+                status=200,
+                mimetype='application/json'
+            )
+    except Exception as ex:
+        print(ex, flush=True)
+        return Response(
+            response=json.dumps({'message': 'Can not update user'}),
+            status=500,
+            mimetype='application/json'
+        )
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
