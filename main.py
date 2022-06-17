@@ -3,6 +3,7 @@ import os
 import pymongo
 from flask import Flask, Response, jsonify, request
 import json
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -34,13 +35,37 @@ def create_user():
         db_response = db.users.insert_one(user)
         return Response(
             response=json.dumps({'message': 'user created', 'id': f'{db_response.inserted_id}'}),
+            status=201,
+            mimetype='application/json'
+        )
+    except Exception as ex:
+        print(ex, flush=True)
+        return Response(
+            response=json.dumps({'message': 'Error'}),
+            status=400,
+            mimetype='application/json'
+        )
+
+
+@app.route('/users/', methods=['GET'])
+def get_some_users():
+    try:
+        data = list(db.users.find())
+        print('DATA:', data, type(data), flush=True)
+        for user in data:
+            user['_id'] = str(user['_id'])
+        return Response(
+            response=json.dumps(data),
             status=200,
             mimetype='application/json'
         )
     except Exception as ex:
-        print('*' * 30, flush=True)
         print(ex, flush=True)
-        print('*' * 30, flush=True)
+        return Response(
+            response=json.dumps({'message': 'Can not read users'}),
+            status=500,
+            mimetype='application/json'
+        )
 
 
 if __name__ == '__main__':
